@@ -18,9 +18,9 @@ public class InputOutputTest {
             System.setOut(new PrintStream(outputContent));
 
             InputOutput view = new InputOutput();
-            String message = "Welcome";
+            String message = "hii";
             view.display(message);
-            assertEquals("Welcome\n", outputContent.toString());
+            assertEquals("hii\n", outputContent.toString());
             System.setOut(original);
         }
 

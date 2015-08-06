@@ -8,4 +8,8 @@ public class InputOutput {
         String input = scanner.nextLine();
         return input;
     }
+
+    public void display(String message) {
+        System.out.println(message);
+    }
 }
