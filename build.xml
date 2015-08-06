@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<project name="newBibliotica" default="runjar" basedir=".">
+
+    <property name="lib.dir" value="lib"/>
+
+    <path id="classpath">
+        <fileset dir="${lib.dir}" includes="junit-4.11.jar"/>
+        <fileset dir="${lib.dir}" includes="mockito-all-1.9.5.jar"/>
+    </path>
+
+    <target name="compile">
+        <javac srcdir="src" includeantruntime="false" destdir="out" classpathref="classpath"/>
+        <javac srcdir="test" includeantruntime="false" destdir="out" classpathref="classpath"/>
+    </target>
+
+    <target name="runjunit" depends="compile">
+        <junit haltonfailure="true" printsummary="true" showoutput="yes">
+            <test name="com.twu.biblioteca.InputOutputTest"/>
+            <classpath>
+                <pathelement location="out"/>
+                <path refid="classpath"/>
+            </classpath>
+            <formatter type="plain" usefile="false"/>
+        </junit>
+    </target>
+
+    <target name="buildjar" depends="runjunit">
+        <jar destfile="build/salesTaxProblem.jar"
+             basedir="out/"
+             includes="**/*.class">
+            <manifest>
+                <attribute name="Main-Class"
+                           value="com.salesTax.Main"/>
+            </manifest>
+        </jar>
+    </target>
+
+    <target name="runjar" depends="buildjar">
+        <java fork="true" classname="com.twu.salesTax.Main">
+            <classpath>
+                <path refid="classpath"/>
+                <path location="build/salesTaxProblem.jar"/>
+            </classpath>
+        </java>
+    </target>
+</project>
